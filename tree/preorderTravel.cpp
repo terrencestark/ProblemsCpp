@@ -26,8 +26,8 @@ void travPre_I(BinNodePosi(T) x, VST &visit){
 /*-------------*/
 template <typename T, typename VST>
 static void visitAlongLeftBranch( 
-	BinNodePosi(T) x;
-	VST &visit;
+	BinNodePosi(T) x,
+	VST &visit,
 	stack <BinNodePosi(T)> &stk)
 {
 	while(x){
@@ -43,6 +43,31 @@ void travPre_I2(BinNodePosi(T) x, VST &visit){
 	stack<BinNodePosi(T)> stk;
 	while(true){
 		visitAlongLeftBranch(x, visit, stk); //visit left chain
+		if(stk.empty()) break;
+		x = stk.top(); stk.pop(); // enter a new subtree
+	}
+}
+
+// get a vector
+template <typename T>
+static void visitAlongLeftBranch(
+	BinNodePosi(T) x,
+	vector<T> &ret,
+	stack<BinNodePosi(T)> &stk)
+{
+	while(x){
+		ret.push_back(x->data);
+		stk.push(x->rChild);
+			// maybe push nullptr
+		x = x->lChild;
+	}
+}
+template <typename T>
+void travPre_I2(BinNodePosi(T) x, vector<T> &ret){
+	if(!x) return;
+	stack<BinNodePosi(T)> stk;
+	while(true){
+		visitAlongLeftBranch(x, ret, stk); //visit left chain
 		if(stk.empty()) break;
 		x = stk.top(); stk.pop(); // enter a new subtree
 	}
