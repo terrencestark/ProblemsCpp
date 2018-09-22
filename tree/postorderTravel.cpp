@@ -93,3 +93,30 @@ void travPost_I2(BinNodePosi(T) x, vector<T> &result){
 		ret.pop();
 	}
 }
+
+// get a vector | or use visit class
+template <typename T>
+void travPost_I3(BinNodePosi(T) x, vector<T> &ret){
+	ret.clear();
+	if(!x) return;
+	stack<BinNodePosi(T)> stk;
+	stack<BinNodePosi(T)> tmp;
+	while(!stk.empty()||x){  
+	// mind the x, when pop root, x point to left subtree
+		if(x){
+			// right chain
+			stk.push(x);
+			tmp.push(x);
+			x = x->rChild;
+		}else{
+			x = stk.top()->lChild;
+			stk.pop();
+		}
+	}
+	// reverse
+	ret.reserve(tmp.size());
+	while(!tmp.empty()){
+		ret.push_back(tmp.top()->data);
+		tmp.pop();
+	}
+}

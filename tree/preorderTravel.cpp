@@ -72,3 +72,20 @@ void travPre_I2(BinNodePosi(T) x, vector<T> &ret){
 		x = stk.top(); stk.pop(); // enter a new subtree
 	}
 }
+
+// get a vector
+template <typename T>
+void travPre_I2(BinNodePosi(T) x, vector<T> &ret){
+	ret.clear();
+	stack<BinNodePosi(T)> stk;
+	while(!stk.empty()||x){
+		if(x){
+			ret.push_back(x->data);
+			stk.push(x);
+			x = x->lChild;
+		}else{
+			x = stk.top()->rChild;
+			stk.pop();
+		}
+	}
+}

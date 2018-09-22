@@ -57,3 +57,21 @@ void travIn_I(BinNodePosi(T) x, vector<T> &ret){
 		x = tmp->rChild; // give pointer to rChild
 	}
 }
+
+// get a vector
+template <typename T>
+void travIn_I(BinNodePosi(T) x, vector<T> &ret){
+	ret.clear();
+	if(!x) return;
+	stack<BinNodePosi(T)> stk;
+	while(!stk.empty()||x){
+		if(x){
+			stk.push(x);
+			x = x->lChild;
+		}else{
+			ret.push_back(stk.top()->data);
+			x = stk.top()->rChild; // travel right subtree
+			stk.pop();
+		}
+	}
+}
